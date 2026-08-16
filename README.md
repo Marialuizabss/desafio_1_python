@@ -1,6 +1,7 @@
 # Sistema de Análise de Atendimentos de Suporte Técnico
 
 DESAFIO 01 FIC_DEV MÓDULO PYTHON - TURMA NOTURNA
+
 Projeto desenvolvido para realizar a leitura, validação, processamento, análise e geração de relatórios a partir de dados de atendimentos de suporte técnico.
 
 ## Integrantes
@@ -36,15 +37,14 @@ desafio_1_python/
 │   ├── categorias.json
 │   ├── config.json
 │   └── observacoes.txt
-├── graficos/
-│   ├── atendimentos_por_categoria.png
-│   ├── atendimentos_por_status.png
-│   └── distribuicao_tempo_atendimento.png
-├── logs/
-│   └── erros.log
 ├── output/
 │   ├── atendimentos_processados.csv
-│   └── resumo.json
+│   ├── resumo.json
+│   ├── erros.log
+│   └── graficos/
+│       ├── atendimentos_por_categoria.png
+│       ├── atendimentos_por_status.png
+│       └── distribuicao_tempo_atendimento.png
 ├── src/
 │   ├── __init__.py
 │   ├── analise.py
@@ -58,13 +58,15 @@ desafio_1_python/
 │   ├── test_processamento.py
 │   ├── test_relatorios.py
 │   └── test_validacao.py
+├── .gitignore
+├── pyproject.toml
 ├── README.md
 └── requirements.txt
 ```
 
 ## Requisitos
 
-- Python 3.12 ou superior
+- Python 3.10 ou superior
 - pandas
 - numpy
 - matplotlib
@@ -108,7 +110,7 @@ Na raiz do projeto, execute:
 python -m src.main
 ```
 
-O programa realiza o processamento dos dados e gera os arquivos de saída e os gráficos.
+O programa realiza o processamento dos dados e gera os arquivos de saída, logs e gráficos no diretório `output/`.
 
 ## Validação dos dados
 
@@ -125,7 +127,7 @@ Registros inválidos não são utilizados no cálculo dos indicadores.
 Os motivos de rejeição são registrados no arquivo:
 
 ```text
-logs/erros.log
+output/erros.log
 ```
 
 Protocolos duplicados também são identificados durante o processamento. A primeira ocorrência é mantida e as demais são removidas.
@@ -172,20 +174,32 @@ São gerados três gráficos:
 
 Na análise da distribuição dos tempos, valores extremos são identificados pelo método do intervalo interquartil (IQR). Dessa forma, valores discrepantes podem ser destacados sem prejudicar a visualização da distribuição dos demais atendimentos.
 
-Os gráficos são armazenados no diretório `graficos/`.
+Os gráficos são armazenados no diretório:
+
+```text
+output/graficos/
+```
 
 ## Arquivos de saída
 
 Após a execução são gerados:
 
 ```text
-output/atendimentos_processados.csv
-output/resumo.json
+output/
+├── atendimentos_processados.csv
+├── resumo.json
+├── erros.log
+└── graficos/
+    ├── atendimentos_por_categoria.png
+    ├── atendimentos_por_status.png
+    └── distribuicao_tempo_atendimento.png
 ```
 
 O CSV contém os registros válidos após o tratamento e a validação.
 
 O JSON apresenta um resumo dos principais indicadores calculados pelo sistema.
+
+O arquivo `erros.log` registra avisos relacionados ao processamento, incluindo protocolos duplicados e os motivos de invalidação dos registros.
 
 ## Testes
 
@@ -201,6 +215,39 @@ Os testes verificam funções de processamento, validação, análise e geraçã
 
 ## Uso de ferramentas de IA
 
-Ferramentas de inteligência artificial foram utilizadas como apoio durante o desenvolvimento do projeto, principalmente para esclarecimento de dúvidas, revisão de código, identificação de possíveis casos de teste e auxílio na documentação.
+Durante o desenvolvimento do projeto foram utilizadas ferramentas de inteligência artificial como apoio ao processo de aprendizagem e implementação.
 
-As sugestões obtidas foram analisadas e adaptadas antes de serem incorporadas ao projeto. A implementação, os testes e a validação do funcionamento do sistema foram realizados pela equipe.
+### Ferramenta utilizada
+
+- ChatGPT
+
+### Finalidade
+
+A ferramenta foi utilizada principalmente para:
+
+- esclarecimento de dúvidas sobre Python e bibliotecas utilizadas;
+- interpretação de mensagens de erro;
+- revisão da organização do código;
+- sugestão de casos de teste;
+- auxílio na utilização de expressões regulares;
+- apoio na elaboração e revisão da documentação.
+
+### Exemplos resumidos de solicitações realizadas
+
+Alguns exemplos de solicitações feitas durante o desenvolvimento foram:
+
+- como validar campos obrigatórios e valores ausentes;
+- como validar e-mails utilizando expressões regulares;
+- como extrair protocolos e telefones de textos;
+- como estruturar testes automatizados utilizando pytest;
+- como gerar e salvar gráficos utilizando Matplotlib;
+- como identificar valores extremos na distribuição dos tempos de atendimento;
+- como organizar a documentação e a estrutura do projeto.
+
+### Revisão realizada pela dupla
+
+As respostas fornecidas pela ferramenta de IA foram utilizadas como sugestões e referências durante o desenvolvimento.
+
+A dupla revisou, testou e adaptou as soluções antes de incorporá-las ao projeto. Foram revisadas e modificadas pelas integrantes partes relacionadas à validação dos dados, processamento, expressões regulares, geração de gráficos, testes automatizados, organização dos arquivos e documentação.
+
+O funcionamento final da aplicação foi verificado pela dupla por meio da execução do sistema e dos testes automatizados.
