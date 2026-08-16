@@ -28,16 +28,17 @@ def configurar_logs():
     Configura o arquivo de log da aplicação.
     """
 
-    diretorio_logs = Path("logs")
-    diretorio_logs.mkdir(parents=True, exist_ok=True)
+    diretorio_saida = Path("output")
+    diretorio_saida.mkdir(parents=True, exist_ok=True)
 
     logging.basicConfig(
-        filename=diretorio_logs / "erros.log",
+        filename=diretorio_saida / "erros.log",
         filemode="w",
         level=logging.WARNING,
         format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
         encoding="utf-8"
-    )
+)
+
 
 def main():
     configurar_logs()
@@ -96,9 +97,11 @@ def main():
     por_status = quantidade_por_status(atendimentos_validos)
     tempo_medio = tempo_medio_atendimento(atendimentos_validos)
     categoria_frequente = categoria_mais_frequente(atendimentos_validos)
-    grafico_por_categoria(por_categoria, "graficos")
-    grafico_distribuicao_tempo(atendimentos_validos, "graficos")
-    grafico_por_status(por_status, "graficos")
+    
+    diretorio_graficos = Path(config["diretorio_saida"]) / "graficos"
+    grafico_por_categoria(por_categoria, diretorio_graficos)
+    grafico_por_status(por_status, diretorio_graficos)
+    grafico_distribuicao_tempo(atendimentos_validos, diretorio_graficos)
 
     percentual = percentual_invalidos(
         total_original,
