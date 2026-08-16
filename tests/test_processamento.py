@@ -85,3 +85,18 @@ def test_protocolos_ausentes_nao_sao_removidos():
     resultado = remover_duplicados(df)
 
     assert len(resultado) == 3
+
+def test_data_invalida_nao_interrompe_outras_datas():
+    df = pd.DataFrame({
+        "data": [
+            "2026-08-01",
+            "data-invalida",
+            "2026-08-03"
+        ]
+    })
+
+    resultado = padronizar_datas(df)
+
+    assert pd.notna(resultado.loc[0, "data"])
+    assert pd.isna(resultado.loc[1, "data"])
+    assert pd.notna(resultado.loc[2, "data"])    

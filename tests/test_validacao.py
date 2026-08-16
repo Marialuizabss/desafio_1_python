@@ -133,3 +133,43 @@ def test_registro_invalido():
     assert 'Campo obrigatório "data" não preenchido' in resultado["erros"]
     assert "E-mail inválido" in resultado["erros"]
     assert "Tempo de atendimento inválido" in resultado["erros"]    
+
+def test_registro_invalido_nao_interrompe_processamento():
+    registros = [
+        {
+            "protocolo": "SUP-001",
+            "data": "2026-08-01",
+            "email": "maria@gmail.com",
+            "categoria": "Senha",
+            "status": "ABERTO",
+            "tempo_minutos": 20,
+            "descricao": "Teste"
+        },
+        {
+            "protocolo": "SUP-002",
+            "data": "",
+            "email": "email-invalido",
+            "categoria": "Senha",
+            "status": "ABERTO",
+            "tempo_minutos": -5,
+            "descricao": "Teste inválido"
+        },
+        {
+            "protocolo": "SUP-003",
+            "data": "2026-08-03",
+            "email": "ana@ufmt.br",
+            "categoria": "Senha",
+            "status": "RESOLVIDO",
+            "tempo_minutos": 30,
+            "descricao": "Teste"
+        }
+    ]
+
+    resultados = []
+
+    for registro in registros:
+        resultados.append(validar_registro(registro))
+
+    assert resultados[0]["valido"] is True
+    assert resultados[1]["valido"] is False
+    assert resultados[2]["valido"] is True    

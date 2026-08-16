@@ -1,5 +1,6 @@
 from pathlib import Path
 import pandas as pd
+import logging
 
 from src.leitura import ler_json, ler_csv, ler_txt
 from src.processamento import tratar_dados
@@ -16,10 +17,29 @@ from src.validacao import validar_registro
 
 from src.relatorios import (
     grafico_por_categoria,
-    grafico_por_status
+    grafico_por_status,
+    exportar_csv,
+    exportar_resumo_json
 )
 
+def configurar_logs():
+    """
+    Configura o arquivo de log da aplicação.
+    """
+
+    diretorio_logs = Path("logs")
+    diretorio_logs.mkdir(parents=True, exist_ok=True)
+
+    logging.basicConfig(
+        filename=diretorio_logs / "erros.log",
+        level=logging.WARNING,
+        format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
+        encoding="utf-8"
+    )
+
 def main():
+    configurar_logs()
+
     print("Sistema de Análise de Atendimentos de Suporte Técnico")
 
     config = ler_json(Path("data/config.json"))
@@ -57,6 +77,8 @@ def main():
             })
     atendimentos_validos = pd.DataFrame(registros_validos)
     total_invalidos = len(registros_invalidos)        
+    
+    exportar_csv(atendimentos_validos, config["diretorio_saida"])
 
     total_atendimentos = quantidade_total_atendimentos(atendimentos_validos)
     por_categoria = quantidade_por_categoria(atendimentos_validos)
@@ -69,6 +91,20 @@ def main():
     percentual = percentual_invalidos(
         total_original,
         total_invalidos
+    )
+
+    resumo = {
+        "total_atendimentos": total_atendimentos,
+        "tempo_medio": round(tempo_medio, 2),
+        "categorias_mais_frequentes": categoria_frequente,
+        "percentual_invalidos": percentual,
+        "atendimentos_por_categoria": por_categoria,
+        "atendimentos_por_status": por_status
+    }
+
+    exportar_resumo_json(
+        resumo,
+        config["diretorio_saida"]
     )
 
     print("\n--- RESUMO ---")

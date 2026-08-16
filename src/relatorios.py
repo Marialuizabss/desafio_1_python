@@ -1,5 +1,6 @@
 from pathlib import Path
 import matplotlib.pyplot as plt
+import json
 
 
 def grafico_por_categoria(dados: dict, diretorio: str) -> None:
@@ -106,3 +107,37 @@ def grafico_por_status(dados: dict, diretorio: str) -> None:
     )
 
     plt.close()
+
+def exportar_csv(df, diretorio: str) -> None:
+    """
+    Exporta os dados tratados para um arquivo CSV.
+    """
+
+    caminho_saida = Path(diretorio)
+    caminho_saida.mkdir(parents=True, exist_ok=True)
+
+    df.to_csv(
+        caminho_saida / "atendimentos_processados.csv",
+        index=False,
+        encoding="utf-8"
+    )   
+
+def exportar_resumo_json(resumo: dict, diretorio: str) -> None:
+    """
+    Exporta o resumo dos indicadores para um arquivo JSON.
+    """
+
+    caminho_saida = Path(diretorio)
+    caminho_saida.mkdir(parents=True, exist_ok=True)
+
+    with open(
+        caminho_saida / "resumo.json",
+        "w",
+        encoding="utf-8"
+    ) as arquivo:
+        json.dump(
+            resumo,
+            arquivo,
+            ensure_ascii=False,
+            indent=4
+        )     

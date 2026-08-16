@@ -1,0 +1,21 @@
+{
+    "total_atendimentos": 140,
+    "tempo_medio": 107.84,
+    "categorias_mais_frequentes": [
+        "Acesso ao AVA",
+        "Instalação de programas"
+    ],
+    "percentual_invalidos": 6.0,
+    "atendimentos_por_categoria": {
+        "Acesso ao AVA": 30,
+        "Instalação de programas": 30,
+        "Execução de atividades": 29,
+        "Senha": 27,
+        "Configuração do Python": 24
+    },
+    "atendimentos_por_status": {
+        "RESOLVIDO": 54,
+        "ABERTO": 44,
+        "EM ANDAMENTO": 42
+    }
+}
