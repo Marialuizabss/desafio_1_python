@@ -11,8 +11,13 @@ from src.analise import (
     categoria_mais_frequente,
     percentual_invalidos
 )
+
 from src.validacao import validar_registro
 
+from src.relatorios import (
+    grafico_por_categoria,
+    grafico_por_status
+)
 
 def main():
     print("Sistema de Análise de Atendimentos de Suporte Técnico")
@@ -58,6 +63,8 @@ def main():
     por_status = quantidade_por_status(atendimentos_validos)
     tempo_medio = tempo_medio_atendimento(atendimentos_validos)
     categoria_frequente = categoria_mais_frequente(atendimentos_validos)
+    grafico_por_categoria(por_categoria, "graficos")
+    grafico_por_status(por_status, "graficos")
 
     percentual = percentual_invalidos(
         total_original,
