@@ -1,8 +1,11 @@
+import pandas as pd
+
 from src.relatorios import (
     grafico_por_categoria,
     grafico_por_status,
     exportar_csv,
-    exportar_resumo_json
+    exportar_resumo_json,
+    grafico_distribuicao_tempo
 )
 
 def test_grafico_por_categoria(tmp_path):
@@ -55,5 +58,17 @@ def test_exportar_resumo_json(tmp_path):
     exportar_resumo_json(resumo, tmp_path)
 
     arquivo = tmp_path / "resumo.json"
+
+    assert arquivo.exists()    
+
+def test_grafico_distribuicao_tempo(tmp_path):
+
+    df = pd.DataFrame({
+        "tempo_minutos": [10, 20, 30, 40, 50]
+    })
+
+    grafico_distribuicao_tempo(df, tmp_path)
+
+    arquivo = tmp_path / "distribuicao_tempo_atendimento.png"
 
     assert arquivo.exists()    

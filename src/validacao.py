@@ -40,6 +40,29 @@ def validar_email(email: str) -> bool:
     
     return bool(re.fullmatch(padrao, email))
 
+def extrair_protocolos(texto: str) -> list:
+    """
+    Extrai protocolos com ou sem o prefixo SUP.
+    """
+
+    if not isinstance(texto, str):
+        return []
+
+    padrao = r"\b(?:SUP-)?20\d{2}-\d{4}\b"
+
+    return re.findall(padrao, texto)
+
+def extrair_telefones(texto: str) -> list:
+    """
+    Extrai telefones em diferentes formatos do texto.
+    """
+
+    if not isinstance(texto, str):
+        return []
+
+    padrao = r"(?:\(\d{2}\)|\d{2})\s?\d{4,5}-\d{4}"
+
+    return re.findall(padrao, texto)
 
 def validar_tempo(tempo) -> bool:
     """

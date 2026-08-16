@@ -13,10 +13,11 @@ from src.analise import (
     percentual_invalidos
 )
 
-from src.validacao import validar_registro
+from src.validacao import validar_registro, extrair_protocolos, extrair_telefones
 
 from src.relatorios import (
     grafico_por_categoria,
+    grafico_distribuicao_tempo,
     grafico_por_status,
     exportar_csv,
     exportar_resumo_json
@@ -32,6 +33,7 @@ def configurar_logs():
 
     logging.basicConfig(
         filename=diretorio_logs / "erros.log",
+        filemode="w",
         level=logging.WARNING,
         format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
         encoding="utf-8"
@@ -57,6 +59,10 @@ def main():
         Path(config["arquivo_observacoes"])
     )
 
+    protocolos_observacoes = extrair_protocolos(observacoes)
+    telefones_observacoes = extrair_telefones(observacoes)
+
+
     total_original = len(atendimentos)
 
     atendimentos = tratar_dados(atendimentos, categorias)
@@ -75,6 +81,11 @@ def main():
                 "registro": registro_dict,
                 "erros": resultado["erros"]
             })
+            logging.warning(
+            f'Registro inválido {registro_dict.get("protocolo")}: '
+            f'{", ".join(resultado["erros"])}'
+)
+
     atendimentos_validos = pd.DataFrame(registros_validos)
     total_invalidos = len(registros_invalidos)        
     
@@ -86,6 +97,7 @@ def main():
     tempo_medio = tempo_medio_atendimento(atendimentos_validos)
     categoria_frequente = categoria_mais_frequente(atendimentos_validos)
     grafico_por_categoria(por_categoria, "graficos")
+    grafico_distribuicao_tempo(atendimentos_validos, "graficos")
     grafico_por_status(por_status, "graficos")
 
     percentual = percentual_invalidos(

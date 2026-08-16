@@ -4,7 +4,9 @@ from src.validacao import (
     validar_campos_obrigatorios,
     validar_email,
     validar_tempo,
-    validar_registro
+    validar_registro,
+    extrair_protocolos,
+    extrair_telefones
 )
 
 
@@ -172,4 +174,35 @@ def test_registro_invalido_nao_interrompe_processamento():
 
     assert resultados[0]["valido"] is True
     assert resultados[1]["valido"] is False
-    assert resultados[2]["valido"] is True    
+    assert resultados[2]["valido"] is True 
+
+
+def test_extrair_protocolos():
+    texto = """
+    Atendimento SUP-2026-0001.
+    Atendimento 2026-0042.
+    Atendimento SUP-2026-0090.
+    """
+
+    protocolos = extrair_protocolos(texto)
+
+    assert protocolos == [
+        "SUP-2026-0001",
+        "2026-0042",
+        "SUP-2026-0090"
+    ]    
+
+def test_extrair_telefones():
+    texto = """
+    Contato: (65) 99999-1203.
+    Telefone alternativo: 65 3333-4455.
+    Outro contato: (65) 99888-7700.
+    """
+
+    telefones = extrair_telefones(texto)
+
+    assert telefones == [
+        "(65) 99999-1203",
+        "65 3333-4455",
+        "(65) 99888-7700"
+    ]    

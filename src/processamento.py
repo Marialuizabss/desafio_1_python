@@ -90,10 +90,33 @@ def padronizar_textos(df: pd.DataFrame) -> pd.DataFrame:
 
 def padronizar_datas(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Padroniza as datas no formato yyyy-mm-dd.
+    Padroniza diferentes formatos de data para datetime.
+    Datas inválidas são convertidas para NaT.
     """
 
-    df["data"] = pd.to_datetime(df["data"], format="mixed", dayfirst=True, errors="coerce")
+    def converter_data(valor):
+        if pd.isna(valor):
+            return pd.NaT
+
+        valor = str(valor).strip()
+
+        formatos = [
+            "%Y-%m-%d",
+            "%d-%m-%Y",
+            "%Y/%m/%d",
+            "%d/%m/%Y"
+        ]
+
+        for formato in formatos:
+            try:
+                return pd.to_datetime(valor, format=formato)
+            except ValueError:
+                continue
+
+        return pd.NaT
+
+    df["data"] = df["data"].apply(converter_data)
+
     return df
 
 

@@ -1,4 +1,10 @@
-2026-08-16 04:49:13,379 - WARNING - src.processamento - Protocolo duplicado removido: SUP-2026-0001
-2026-08-16 04:51:25,635 - WARNING - src.processamento - Protocolo duplicado removido: SUP-2026-0001
-2026-08-16 04:55:12,484 - WARNING - src.processamento - Protocolo duplicado removido: SUP-2026-0001
-2026-08-16 04:56:48,272 - WARNING - src.processamento - Protocolo duplicado removido: SUP-2026-0001
+2026-08-16 06:33:06,879 - WARNING - src.processamento - Protocolo duplicado removido: SUP-2026-0001
+2026-08-16 06:33:06,881 - WARNING - root - Registro inválido SUP-2026-0010: E-mail inválido
+2026-08-16 06:33:06,882 - WARNING - root - Registro inválido SUP-2026-0020: Campo obrigatório "data" não preenchido
+2026-08-16 06:33:06,883 - WARNING - root - Registro inválido SUP-2026-0030: Tempo de atendimento inválido
+2026-08-16 06:33:06,884 - WARNING - root - Registro inválido SUP-2026-0040: Campo obrigatório "categoria" não preenchido
+2026-08-16 06:33:06,885 - WARNING - root - Registro inválido SUP-2026-0060: Campo obrigatório "email" não preenchido
+2026-08-16 06:33:06,885 - WARNING - root - Registro inválido SUP-2026-0070: Tempo de atendimento inválido
+2026-08-16 06:33:06,886 - WARNING - root - Registro inválido SUP-2026-0090: Campo obrigatório "data" não preenchido
+2026-08-16 06:33:06,887 - WARNING - root - Registro inválido SUP-2026-0110: Campo obrigatório "categoria" não preenchido
+2026-08-16 06:33:06,888 - WARNING - root - Registro inválido SUP-2026-0120: E-mail inválido
