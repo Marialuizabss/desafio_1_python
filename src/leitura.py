@@ -1,18 +1,21 @@
+# Módulo responsável pela leitura dos arquivos 
+
+
 import json
 import logging
 from pathlib import Path
 import pandas as pd
 
+
 logger = logging.getLogger(__name__)
 
 
-# Leitura de arquivos 
-
 def ler_json (caminho: Path) -> dict:
     '''
-    Função responsável por ler arquivos no formato json e tratar os erros e exceções de leitura
+    Lê um arquivo no formato JSON e trata erros de leitura.
+    Retorna o conteúdo como um dicionário.
     '''
-    
+
     try:
         with open(caminho, 'r', encoding='utf-8') as f:
             dados_json = json.load(f)
@@ -37,7 +40,8 @@ def ler_json (caminho: Path) -> dict:
 
 def ler_txt (caminho: Path) -> str:
     '''
-    Função responsável por ler arquivos no formato txt e tratar os erros e exceções de leitura
+    Lê um arquivo no formato TXT e trata erros de leitura..
+    Retorna o conteúdo bruto como uma string.
     '''
     
     try:
@@ -59,7 +63,8 @@ def ler_txt (caminho: Path) -> str:
 
 def ler_csv (caminho: Path, separador: str) -> pd.DataFrame:
     '''
-    Função responsável por ler arquivos no formato csv e tratar os erros e exceções de leitura
+    Lê um arquivo no formato CSV e trata erros de leitura e de interpretação.
+    Retorna os dados como um DataFrame do pandas.
     '''
     
     try:
